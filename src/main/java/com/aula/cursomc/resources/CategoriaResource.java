@@ -1,8 +1,5 @@
 package com.aula.cursomc.resources;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.aula.cursomc.domain.Categoria;
 import com.aula.cursomc.services.CategoriaService;
 
@@ -27,6 +24,7 @@ public class CategoriaResource {
         Categoria obj = service.buscar(id);
 
         return ResponseEntity.ok().body(obj);
+
     }
 
 

@@ -1,11 +1,11 @@
 package com.aula.cursomc.repositories;
 
-import com.aula.cursomc.domain.Produto;
+import com.aula.cursomc.domain.Cidade;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ProdutoRepository extends JpaRepository<Produto, Integer>{
+public interface CidadeRepository extends JpaRepository<Cidade, Integer>{
     
 }
