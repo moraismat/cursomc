@@ -15,9 +15,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 
 import com.aula.cursomc.domain.enums.TipoCliente;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
-import org.hibernate.annotations.ManyToAny;
 
 @Entity
 public class Cliente implements Serializable{
@@ -39,6 +39,7 @@ public class Cliente implements Serializable{
     @CollectionTable(name = "telefone")
     private Set<String> telefones = new HashSet<>();
 
+	@JsonBackReference
 	@OneToMany(mappedBy = "cliente")
 	private List<Pedido> pedidos = new ArrayList<>();
 
