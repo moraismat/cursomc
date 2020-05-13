@@ -1,8 +1,6 @@
 package com.aula.cursomc.resources;
 
-import com.aula.cursomc.domain.Categoria;
 import com.aula.cursomc.domain.Cliente;
-import com.aula.cursomc.services.CategoriaService;
 import com.aula.cursomc.services.ClienteService;
 
 import org.springframework.beans.factory.annotation.Autowired;
