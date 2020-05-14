@@ -1,8 +1,12 @@
 package com.aula.cursomc.resources;
 
 import java.net.URI;
+import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import com.aula.cursomc.domain.Categoria;
+import com.aula.cursomc.dto.CategoriaDTO;
 import com.aula.cursomc.services.CategoriaService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +33,7 @@ public class CategoriaResource {
 
         return ResponseEntity.ok().body(obj);
 
-    }
+    } 
 
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<Void> insert(@RequestBody Categoria obj){
@@ -51,7 +55,18 @@ public class CategoriaResource {
     @RequestMapping(value="/{id}", method=RequestMethod.DELETE)
     public ResponseEntity<Void> delete(@PathVariable Integer id ) {
         service.delete(id);
+
         return ResponseEntity.noContent().build();
 
     }
+
+    @RequestMapping(method=RequestMethod.GET)
+    public ResponseEntity<List<CategoriaDTO>> findAll() {
+        
+        List<Categoria> list = service.findAll();
+        List<CategoriaDTO> listDTO = list.stream().map(obj -> new CategoriaDTO(obj)).collect(Collectors.toList());
+
+        return ResponseEntity.ok().body(listDTO);
+
+    } 
 }

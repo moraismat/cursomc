@@ -1,5 +1,6 @@
 package com.aula.cursomc.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import com.aula.cursomc.domain.Categoria;
@@ -23,6 +24,7 @@ public class CategoriaService {
                     "Objeto não encontrado! Id: " + id + ", Tipo: " + Categoria.class.getName())); 
     }
 
+
     public Categoria insert(Categoria obj) {
         obj.setId(null);
         return repo.save(obj);
@@ -42,6 +44,10 @@ public class CategoriaService {
         catch (DataIntegrityViolationException e) {
             throw new DataIntegrityException("Não é possivel excluir uma Categoria que possui Produtos"); 
         }
+    }
+
+    public List<Categoria> findAll(){    
+        return repo.findAll();
     }
 
 }
