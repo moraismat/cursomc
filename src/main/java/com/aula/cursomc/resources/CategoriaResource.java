@@ -1,13 +1,20 @@
 package com.aula.cursomc.resources;
 
+import java.net.URI;
+
+import javax.servlet.Servlet;
+
 import com.aula.cursomc.domain.Categoria;
 import com.aula.cursomc.services.CategoriaService;
 
+import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 
@@ -27,5 +34,14 @@ public class CategoriaResource {
 
     }
 
+    @RequestMapping(method = RequestMethod.POST)
+    public ResponseEntity<Void> insert(@RequestBody Categoria obj){
+        obj = service.insert(obj);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{i}")
+                .buildAndExpand(obj.getId()).toUri();
+
+        return ResponseEntity.created(uri).build();
+
+    }
 
 }
