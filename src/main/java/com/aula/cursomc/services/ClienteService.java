@@ -3,6 +3,8 @@ package com.aula.cursomc.services;
 import java.util.List;
 import java.util.Optional;
 
+import javax.transaction.Transactional;
+
 import com.aula.cursomc.domain.Cidade;
 import com.aula.cursomc.domain.Cliente;
 import com.aula.cursomc.domain.Endereco;
@@ -36,6 +38,7 @@ public class ClienteService {
                     "Objeto não encontrado! Id: " + id + ", Tipo: " + Cliente.class.getName())); 
     }
 
+    @Transactional
     public Cliente insert(Cliente obj) {
         obj.setId(null);
         obj = repo.save(obj);
