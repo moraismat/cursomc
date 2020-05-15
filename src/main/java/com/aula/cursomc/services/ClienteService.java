@@ -3,9 +3,14 @@ package com.aula.cursomc.services;
 import java.util.List;
 import java.util.Optional;
 
+import com.aula.cursomc.domain.Cidade;
 import com.aula.cursomc.domain.Cliente;
+import com.aula.cursomc.domain.Endereco;
+import com.aula.cursomc.domain.enums.TipoCliente;
 import com.aula.cursomc.dto.ClienteDTO;
+import com.aula.cursomc.dto.ClienteNewDTO;
 import com.aula.cursomc.repositories.ClienteRepository;
+import com.aula.cursomc.repositories.EnderecoRepository;
 import com.aula.cursomc.services.exception.DataIntegrityException;
 import com.aula.cursomc.services.exception.ObjectNotFoundException;
 
@@ -22,6 +27,9 @@ public class ClienteService {
     @Autowired
     private ClienteRepository repo;
 
+    @Autowired
+    private EnderecoRepository enderecoRepository;
+
     public Cliente find(Integer id){
         Optional<Cliente> obj = repo.findById(id);
         return obj.orElseThrow(() -> new ObjectNotFoundException(
@@ -30,7 +38,10 @@ public class ClienteService {
 
     public Cliente insert(Cliente obj) {
         obj.setId(null);
-        return repo.save(obj);
+        obj = repo.save(obj);
+        enderecoRepository.saveAll(obj.getEnderecos());
+
+        return obj;
     }
 
     public Cliente update(Cliente obj) {
@@ -67,4 +78,23 @@ public class ClienteService {
         newObj.setNome(obj.getNome());
         newObj.setEmail(obj.getEmail());
     }
+
+    public Cliente fromDTO(ClienteNewDTO objDTO){
+        Cliente cli = new Cliente(null, objDTO.getNome(), objDTO.getEmail(), objDTO.getCpfOuCnpj(), TipoCliente.toEnum(objDTO.getTipoCliente()));   
+        Cidade cid = new Cidade(objDTO.getCidadeId(), null, null);
+        Endereco end = new Endereco(null, objDTO.getLogradouro(), objDTO.getNumero(), objDTO.getComplemento(),
+                            objDTO.getBairro(), objDTO.getCep(), cli,cid);
+        cli.getEnderecos().add(end);
+        cli.getTelefones().add(objDTO.getTeletone1());
+
+        if(objDTO.getTeletone2() != null){
+            cli.getTelefones().add(objDTO.getTeletone2());
+        }
+        if(objDTO.getTeletone3() != null){
+            cli.getTelefones().add(objDTO.getTeletone3());
+        }
+
+        return cli;        
+    
+    } 
 }
