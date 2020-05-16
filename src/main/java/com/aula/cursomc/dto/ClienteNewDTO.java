@@ -2,22 +2,45 @@ package com.aula.cursomc.dto;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+
+import org.hibernate.validator.constraints.Length;
+
+
 public class ClienteNewDTO implements Serializable{
     private static final long serialVersionUID = 1L;
 
-    private String nome;
-    private String email;
-    private String cpfOuCnpj;
+	@NotEmpty(message = "Campo nome vazio!")
+	@Length(min = 5, max = 120, message = "Tamanho deve estar no intervalo [25,80] ")
+	private String nome;
+	@NotEmpty(message = "Campo nome vazio!")
+    @Email(message = "Email Invalido!")
+	private String email;
+	
+	@NotEmpty(message = "Campo nome vazio!")
+	private String cpfOuCnpj;
+	
     private Integer tipoCliente;
 
-    private String logradouro;
-    private String numero;
+
+	@NotEmpty(message = "Campo nome vazio!")
+	private String logradouro;
+	
+	@NotEmpty(message = "Campo nome vazio!")
+	private String numero;
+	
     private String complemento;
-    private String bairro;
+	private String bairro;
+	
+	@NotEmpty(message = "Campo nome vazio!")
     private String cep;
 
+
+	@NotEmpty(message = "Campo nome vazio!")
     private String teletone1;
-    private String teletone2;
+	private String teletone2;
+	
     private String teletone3;
 
     private Integer cidadeId;
