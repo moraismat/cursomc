@@ -4,10 +4,8 @@ import java.util.List;
 import java.util.Optional;
 
 import com.aula.cursomc.domain.Categoria;
-import com.aula.cursomc.domain.Pedido;
 import com.aula.cursomc.domain.Produto;
 import com.aula.cursomc.repositories.CategoriaRepository;
-import com.aula.cursomc.repositories.PedidoRepository;
 import com.aula.cursomc.repositories.ProdutoRepository;
 import com.aula.cursomc.services.exception.ObjectNotFoundException;
 
