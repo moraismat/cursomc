@@ -1,12 +1,11 @@
 package com.aula.cursomc.services;
 
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 
-
-
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import com.aula.cursomc.domain.Categoria;
 import com.aula.cursomc.domain.Cidade;
 import com.aula.cursomc.domain.Cliente;
@@ -29,10 +28,6 @@ import com.aula.cursomc.repositories.ItemPedidoRepository;
 import com.aula.cursomc.repositories.PagamentoRepository;
 import com.aula.cursomc.repositories.PedidoRepository;
 import com.aula.cursomc.repositories.ProdutoRepository;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 @Service
 public class DBService {
     
