@@ -7,13 +7,15 @@ import javax.validation.constraints.NotEmpty;
 
 import org.hibernate.validator.constraints.Length;
 
+import com.aula.cursomc.services.validation.ClienteInsert;
 
 public class ClienteNewDTO implements Serializable{
     private static final long serialVersionUID = 1L;
 
-	@NotEmpty(message = "Campo nome vazio!")
-	@Length(min = 5, max = 120, message = "Tamanho deve estar no intervalo [25,80] ")
+	@NotEmpty(message="Preenchimento obrigatório")
+	@Length(min=5, max=120, message="O tamanho deve ser entre 5 e 120 caracteres")
 	private String nome;
+	
 	@NotEmpty(message = "Campo nome vazio!")
     @Email(message = "Email Invalido!")
 	private String email;
@@ -38,7 +40,7 @@ public class ClienteNewDTO implements Serializable{
 
 
 	@NotEmpty(message = "Campo nome vazio!")
-    private String teletone1;
+	private String teletone1;
 	private String teletone2;
 	
     private String teletone3;
