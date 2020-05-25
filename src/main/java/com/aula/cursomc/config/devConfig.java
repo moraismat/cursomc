@@ -3,6 +3,8 @@ package com.aula.cursomc.config;
 import java.text.ParseException;
 
 import com.aula.cursomc.services.DBService;
+import com.aula.cursomc.services.EmailService;
+import com.aula.cursomc.services.SmtpEmailService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -20,6 +22,7 @@ public class devConfig {
     
     @Value("${spring.jpa.hibernate.ddl-auto}")
     private String stragey;
+
     @Bean
     public boolean instantiateDataBase() throws ParseException{
         
@@ -30,5 +33,10 @@ public class devConfig {
         dbService.instantiateTestDataBase();
 
         return true;
+    }
+
+    @Bean
+    public EmailService emailService(){
+        return new SmtpEmailService();
     }
 }
