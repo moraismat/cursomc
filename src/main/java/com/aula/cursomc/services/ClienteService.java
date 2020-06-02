@@ -19,7 +19,7 @@ import com.aula.cursomc.security.UserSS;
 import com.aula.cursomc.services.exception.AuthorizationException;
 import com.aula.cursomc.services.exception.DataIntegrityException;
 import com.aula.cursomc.services.exception.ObjectNotFoundException;
-
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
@@ -27,8 +27,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
-
 @Service
 public class ClienteService {
     
