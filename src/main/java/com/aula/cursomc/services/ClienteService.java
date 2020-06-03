@@ -107,19 +107,19 @@ public class ClienteService {
         newObj.setEmail(obj.getEmail());
     }
 
-    public Cliente fromDTO(ClienteNewDTO objDTO){
-        Cliente cli = new Cliente(null, objDTO.getNome(), objDTO.getEmail(), objDTO.getCpfOuCnpj(), TipoCliente.toEnum(objDTO.getTipoCliente()),pe.encode(objDTO.getSenha())); 
-        Cidade cid = new Cidade(objDTO.getCidadeId(), null, null);
-        Endereco end = new Endereco(null, objDTO.getLogradouro(), objDTO.getNumero(), objDTO.getComplemento(),
-                            objDTO.getBairro(), objDTO.getCep(), cli,cid);
+    public Cliente fromDTO(ClienteNewDTO objDto){
+        Cliente cli = new Cliente(null, objDto.getNome(), objDto.getEmail(), objDto.getCpfOuCnpj(),
+				TipoCliente.toEnum(objDto.getTipoCliente()), pe.encode(objDto.getSenha()));Cidade cid = new Cidade(objDto.getCidadeId(), null, null);
+        Endereco end = new Endereco(null, objDto.getLogradouro(), objDto.getNumero(), objDto.getComplemento(),
+                objDto.getBairro(), objDto.getCep(), cli, cid);
         cli.getEnderecos().add(end);
-        cli.getTelefones().add(objDTO.getTeletone1());
+        cli.getTelefones().add(objDto.getTeletone1());
 
-        if(objDTO.getTeletone2() != null){
-            cli.getTelefones().add(objDTO.getTeletone2());
+        if(objDto.getTeletone2() != null){
+            cli.getTelefones().add(objDto.getTeletone2());
         }
-        if(objDTO.getTeletone3() != null){
-            cli.getTelefones().add(objDTO.getTeletone3());
+        if(objDto.getTeletone3() != null){
+            cli.getTelefones().add(objDto.getTeletone3());
         }
 
         return cli;        
@@ -135,5 +135,20 @@ public class ClienteService {
 		String fileName = prefix + user.getId() + ".jpg";
 
 		return s3Service.uploadFile(imageService.getInputStream(jpgImage, "jpg"), fileName, "image");
-	}
+    }
+    
+    public Cliente findByEmail(String email) {
+
+		UserSS user = UserService.authenticated();
+		if (user == null || !user.hasRole(Perfil.ADMIN) && !email.equals(user.getUsername())) {
+			throw new AuthorizationException("Acesso negado");
+		}
+
+		Cliente obj = repo.findByEmail(email);
+		if (obj == null) {
+			throw new ObjectNotFoundException(
+					"Objeto não encontrado! Id: " + user.getId() + ", Tipo: " + Cliente.class.getName());
+		}
+        return obj;
+    }
 }
